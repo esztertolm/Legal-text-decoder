@@ -2,15 +2,18 @@
 set -e 
 
 echo "Running data processing..." 
-python 01_data_processing.py 
+python data_processing_01.py 
 
 
 echo "Running model training..." 
-python 02_train.py 
+python train_02.py 
 
 
 echo "Running evaluation..." 
-python 03_evaluation.py 
+python evaluation_03.py 
 
 
 echo "Pipeline finished successfully." 
+
+echo "Opening app in browser..."
+python -m streamlit run streamlit_legal_text_app.py 
