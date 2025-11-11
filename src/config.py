@@ -4,4 +4,5 @@ BATCH_SIZE = 8
 EPOCHS = 3
 LR = 2e-5
 SEED = 42
-DF_PATH="src/data/df.csv"
+DF_PATH="data/df.csv"
+MODEL_OUTPUT="output/models/bert_finetuned"
