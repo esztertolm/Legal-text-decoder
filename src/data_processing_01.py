@@ -106,4 +106,4 @@ def load_and_prepare_data(path):
     return train_dataset, val_dataset, test_dataset, tokenizer, id2label, len(label2id), class_weights
 
 if __name__=="__main__":
-    preparing_df("src/data/legal_text_dataset.json")
+    preparing_df("data/legal_text_dataset.json")
