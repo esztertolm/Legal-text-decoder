@@ -1,8 +1,9 @@
-MODEL_NAME = "bert-base-multilingual-cased"
+MODEL_NAME = "SZTAKI-HLT/hubert-base-cc"
 MAX_LENGTH = 256
-BATCH_SIZE = 8
-EPOCHS = 3
-LR = 2e-5
+BATCH_SIZE = 32
+EPOCHS = 2
+LR = 2e-4
 SEED = 42
 DF_PATH="data/df.csv"
 MODEL_OUTPUT="output/models/bert_finetuned"
+RAW_DATA_FOLDER_PATH="data/all_data"
