@@ -8,7 +8,6 @@ from config import BATCH_SIZE, DF_PATH, MODEL_OUTPUT
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
-import numpy as np
 
 def evaluate(model_path=MODEL_OUTPUT, data_path=DF_PATH):
     # seed is the same everywhere, so the val dataset will be the same as well

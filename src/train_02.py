@@ -3,21 +3,19 @@ import torch
 from torch.utils.data import DataLoader
 from torch.nn import CrossEntropyLoss
 from transformers import (
-    AutoModelForSequenceClassification,
     AdamW,
     get_linear_schedule_with_warmup,
 )
 from sklearn.metrics import classification_report, accuracy_score
 from tqdm.auto import tqdm
 from data_processing_01 import load_and_prepare_data
+from modules.LegalBERT import LegalBERT
 from config import EPOCHS, BATCH_SIZE, LR, DF_PATH, MODEL_OUTPUT
 
 def train():
     train_dataset, val_dataset, _test_dataset, tokenizer, _id2label, num_labels, class_weights = load_and_prepare_data(DF_PATH)
 
-    model = AutoModelForSequenceClassification.from_pretrained(
-        "bert-base-multilingual-cased", num_labels=num_labels
-    )
+    model = LegalBERT(num_labels=num_labels)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
@@ -27,6 +25,7 @@ def train():
     optimizer = AdamW(model.parameters(), lr=LR)
     total_steps = len(train_loader) * EPOCHS
     scheduler = get_linear_schedule_with_warmup(optimizer, 0, total_steps)
+    print(class_weights)
 
     loss_fct = CrossEntropyLoss(weight=class_weights.to(device))
 
@@ -59,8 +58,9 @@ def train():
         print("Accuracy:", accuracy_score(true, preds))
 
     os.makedirs(MODEL_OUTPUT, exist_ok=True)
-    model.save_pretrained(MODEL_OUTPUT)
     tokenizer.save_pretrained(MODEL_OUTPUT)
+    torch.save(model.state_dict(), os.path.join(MODEL_OUTPUT, "pytorch_model.bin"))
+    model.bert.config.save_pretrained(MODEL_OUTPUT)
 
 if __name__ == "__main__":
     train()
