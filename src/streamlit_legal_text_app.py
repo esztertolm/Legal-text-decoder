@@ -1,14 +1,23 @@
 import streamlit as st
 import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoTokenizer
 from config import MODEL_OUTPUT
+from modules.LegalBERT import LegalBERT
+from transformers import AutoConfig
+
 
 
 # A GUI nagyrészét én csináltam, LLM asszintenciával megszépítettem az oldalt színekkel és emojikkal.
 @st.cache_resource
 def load_model(model_path=MODEL_OUTPUT):
     tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModelForSequenceClassification.from_pretrained(model_path)
+    
+    config = AutoConfig.from_pretrained(model_path)
+    
+    model = LegalBERT(num_labels=5) 
+    state_dict = torch.load(f"{model_path}/pytorch_model.bin", map_location=torch.device('cpu'))
+    model.load_state_dict(state_dict)
+    
     model.eval()
     return tokenizer, model
 

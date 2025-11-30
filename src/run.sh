@@ -16,4 +16,4 @@ python evaluation_03.py
 echo "Pipeline finished successfully." 
 
 echo "Opening app in browser..."
-python -m streamlit run streamlit_legal_text_app.py 
+python -m streamlit run streamlit_legal_text_app.py --server.address=0.0.0.0 --server.port=8501

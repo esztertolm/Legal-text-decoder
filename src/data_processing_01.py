@@ -3,9 +3,10 @@ import torch
 from torch.utils.data import Dataset
 from transformers import AutoTokenizer
 from sklearn.model_selection import train_test_split
-from config import MODEL_NAME, MAX_LENGTH, SEED, DF_PATH
+from config import MODEL_NAME, MAX_LENGTH, SEED, DF_PATH, RAW_DATA_FOLDER_PATH
 import json
 from collections import Counter
+from pathlib import Path
 
 
 class TextDataset(Dataset):
@@ -40,18 +41,18 @@ def _extract_from_results(results_list):
         if ch:
             out.extend(ch)
     return out
-    
-def preparing_df(json_path):
-    print(f"Loading from: {json_path}")
 
+def process_single_json(json_path):
+    print(f"Processing: {json_path}")
+    
     with open(json_path, encoding="utf-8") as f:
         data = json.load(f)
 
     rows = []
-    for item in data:
-        text = item.get("data", {}).get("text")
-        choices = []
 
+    for item in data:
+        text = str(item.get("data", {}).get("text"))
+        choices = []
 
         for ann in item.get("annotations", []):
             results = ann.get("result", [])
@@ -63,20 +64,26 @@ def preparing_df(json_path):
                 choices.extend(_extract_from_results(results))
 
         if choices:
-            seen = set()
-            unique = []
-            for c in choices:
-                if c not in seen:
-                    seen.add(c)
-                    unique.append(c)
-            choices = unique
-        else:
-            choices = None
+            choices = list(dict.fromkeys(choices))
+            label = str(choices[0])
+            rows.append({"text": text, "label": label})
 
-        rows.append({"text": text, "label": choices[0]})
+        
 
-    df = pd.DataFrame(rows)
-    df.to_csv(DF_PATH)
+    return pd.DataFrame(rows)
+
+def prepare_df_from_folder(folder_path):
+    folder = Path(folder_path)
+    all_dfs = []
+
+    for json_file in folder.rglob("*.json"):
+        df = process_single_json(json_file)
+        all_dfs.append(df)
+
+    if not all_dfs:
+        return pd.DataFrame(columns=["text", "label"])
+    
+    return pd.concat(all_dfs, ignore_index=True)
 
 
 def load_and_prepare_data(path):
@@ -105,5 +112,14 @@ def load_and_prepare_data(path):
 
     return train_dataset, val_dataset, test_dataset, tokenizer, id2label, len(label2id), class_weights
 
+def _clean_df(df):
+    df['word_count'] = df['text'].str.split().str.len()
+    df_clean = df[df['word_count'] >= 7].copy()
+    df_clean = df_clean.drop("word_count", axis=1)
+    print(f"Data cleaning is ready. Original size of data: {len(df)}, Size of data after cleaning: {len(df_clean)}")
+    return df_clean
+
 if __name__=="__main__":
-    preparing_df("data/legal_text_dataset.json")
+    df = prepare_df_from_folder(RAW_DATA_FOLDER_PATH)
+    df = _clean_df(df)
+    df.to_csv(DF_PATH, index=False)
