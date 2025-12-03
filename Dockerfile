@@ -20,6 +20,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 5. Alkalmazás kódjának és a futtató scriptnek a másolása 
 COPY ./src . 
 
+COPY run.sh .
+
 # 6. A futtató script végrehajthatóvá tétele 
 RUN chmod +x run.sh 
 

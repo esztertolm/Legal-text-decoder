@@ -8,6 +8,7 @@ from config import BATCH_SIZE, DF_PATH, MODEL_OUTPUT
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
+from utils.logger import logger
 
 def evaluate(model_path=MODEL_OUTPUT, data_path=DF_PATH):
     # seed is the same everywhere, so the val dataset will be the same as well
@@ -30,8 +31,8 @@ def evaluate(model_path=MODEL_OUTPUT, data_path=DF_PATH):
             preds.extend(torch.argmax(logits, dim=-1).cpu().tolist())
             true.extend(batch["labels"].cpu().tolist())
 
-    print(classification_report(true, preds, zero_division=0))
-    print("Accuracy:", accuracy_score(true, preds))
+    logger.info(classification_report(true, preds, zero_division=0))
+    logger.info(f"Accuracy:{accuracy_score(true, preds)}")
 
     cm = confusion_matrix(true, preds)
     labels = [id2label[i] for i in range(len(id2label))]
@@ -43,7 +44,7 @@ def evaluate(model_path=MODEL_OUTPUT, data_path=DF_PATH):
     
     output_file = os.path.join(model_path, "confusion_matrix.png")
     plt.savefig(output_file)
-    print(f"Confusion matrix is saved: {output_file}")
+    logger.info(f"Confusion matrix is saved: {output_file}")
 
 if __name__ == "__main__":
     evaluate()

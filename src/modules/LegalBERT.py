@@ -34,11 +34,8 @@ class LegalBERT(nn.Module):
             token_type_ids=token_type_ids
         )
         
-        # A pooler_output a [CLS] token reprezentációja, ami a teljes mondatot sűríti
-        # Shape: (batch_size, hidden_size)
-        pooler_output = outputs.pooler_output
-        
-        logits = self.classifier(pooler_output)
+        cls_token = outputs.last_hidden_state[:, 0, :] 
+        logits = self.classifier(cls_token)
             
         return SequenceClassifierOutput(
             loss=None,

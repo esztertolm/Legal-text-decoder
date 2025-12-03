@@ -21,8 +21,8 @@ def load_model(model_path=MODEL_OUTPUT):
     model.eval()
     return tokenizer, model
 
-tokenizer, model = load_model()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+tokenizer, model = load_model()
 model.to(device)
 
 

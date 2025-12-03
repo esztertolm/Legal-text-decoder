@@ -7,6 +7,7 @@ from config import MODEL_NAME, MAX_LENGTH, SEED, DF_PATH, RAW_DATA_FOLDER_PATH
 import json
 from collections import Counter
 from pathlib import Path
+from utils.logger import logger
 
 
 class TextDataset(Dataset):
@@ -43,7 +44,7 @@ def _extract_from_results(results_list):
     return out
 
 def process_single_json(json_path):
-    print(f"Processing: {json_path}")
+    logger.info(f"Processing: {json_path}")
     
     with open(json_path, encoding="utf-8") as f:
         data = json.load(f)
@@ -116,7 +117,7 @@ def _clean_df(df):
     df['word_count'] = df['text'].str.split().str.len()
     df_clean = df[df['word_count'] >= 7].copy()
     df_clean = df_clean.drop("word_count", axis=1)
-    print(f"Data cleaning is ready. Original size of data: {len(df)}, Size of data after cleaning: {len(df_clean)}")
+    logger.info(f"Data cleaning is ready. Original size of data: {len(df)}, Size of data after cleaning: {len(df_clean)}")
     return df_clean
 
 if __name__=="__main__":
