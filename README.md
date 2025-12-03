@@ -48,8 +48,9 @@ Use this command if you are on Windows:
 docker run --rm --gpus all `
   -v "${PWD}\data:/app/data" `
   -v "${PWD}\output:/app/output" `
+  -v "${PWD}\logs:/app/logs" `
   -p 8051:8501 `
-  legal-text-app:1.0 > training_log.txt 2>&1
+  legal-text-app:1.0
 ```
 
 
@@ -61,8 +62,9 @@ Use this command if you are on Linux or macOS:
 docker run --rm --gpus all \
   -v "$(pwd)/data:/app/data" \
   -v "$(pwd)/output:/app/output" \
+  -v "${pwd}/logs:/app/logs" \
   -p 8051:8501 \
-  legal-text-app:1.0 > training_log.txt 2>&1
+  legal-text-app:1.0
 ```
 
 
@@ -83,6 +85,6 @@ After the training pipeline finishes (you can check progress in training_log.txt
 
 Open your web browser and navigate to:
 
- http://127.0.0.1:8051/
+http://127.0.0.1:8051/
 
 Here you can enter legal texts and get real-time complexity predictions from the model.
