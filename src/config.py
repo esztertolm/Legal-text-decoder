@@ -1,9 +1,9 @@
 MODEL_NAME = "SZTAKI-HLT/hubert-base-cc"
 MAX_LENGTH = 256
 BATCH_SIZE = 32
-EPOCHS = 2
+EPOCHS = 7
 LR = 2e-5
-EARLY_STOPPING_PATIENCE = 3
+EARLY_STOPPING_PATIENCE = 2
 SEED = 42
 DF_PATH="data/df.csv"
 MODEL_OUTPUT="output/models/bert_finetuned"
