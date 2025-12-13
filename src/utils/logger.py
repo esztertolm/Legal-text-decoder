@@ -17,7 +17,7 @@ if not logger.handlers:
     if not os.path.exists(log_dir):
         os.makedirs(log_dir, exist_ok=True)
 
-    log_file_name = os.path.join(log_dir, "output_logs.log")
+    log_file_name = os.path.join(log_dir, "run.log")
     file_handler = logging.FileHandler(log_file_name, encoding='utf-8')
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO) 

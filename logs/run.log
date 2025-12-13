@@ -1,0 +1,193 @@
+2025-12-12 13:02:57,673 - INFO - data_processing_01 - Processing: data/all_data/alza_aszf.json
+2025-12-12 13:02:57,682 - INFO - data_processing_01 - Processing: data/all_data/budapestgo_aszf.json
+2025-12-12 13:02:57,688 - INFO - data_processing_01 - Processing: data/all_data/cimekezes.json
+2025-12-12 13:02:57,695 - INFO - data_processing_01 - Processing: data/all_data/cimkezes (1).json
+2025-12-12 13:02:57,700 - INFO - data_processing_01 - Processing: data/all_data/cimkezes.json
+2025-12-12 13:02:57,706 - INFO - data_processing_01 - Processing: data/all_data/dpd.json
+2025-12-12 13:02:57,712 - INFO - data_processing_01 - Processing: data/all_data/epitesi_beruhazas.json
+2025-12-12 13:02:57,718 - INFO - data_processing_01 - Processing: data/all_data/erste-diakhitel-kozpont_cimkezes.json
+2025-12-12 13:02:57,727 - INFO - data_processing_01 - Processing: data/all_data/FA0B9B_labeling.json
+2025-12-12 13:02:57,732 - INFO - data_processing_01 - Processing: data/all_data/fonallak_cimkezes.json
+2025-12-12 13:02:57,737 - INFO - data_processing_01 - Processing: data/all_data/granit_bank_cimkezes.json
+2025-12-12 13:02:57,744 - INFO - data_processing_01 - Processing: data/all_data/hardverapro_labeled.json
+2025-12-12 13:02:57,747 - INFO - data_processing_01 - Processing: data/all_data/hasznalt_auto_cimkek.json
+2025-12-12 13:02:57,832 - INFO - data_processing_01 - Data cleaning is ready. Original size of data: 1667, Size of data after cleaning: 1567
+2025-12-12 13:03:00,162 - INFO - train_02 - ------------------------------
+2025-12-12 13:03:00,163 - INFO - train_02 - The hyperparameters are the following:
+2025-12-12 13:03:00,163 - INFO - train_02 - Number of epochs: 7
+2025-12-12 13:03:00,163 - INFO - train_02 - Batch size: 32
+2025-12-12 13:03:00,164 - INFO - train_02 - Learning rate: 2e-05
+2025-12-12 13:03:18,143 - INFO - train_02 - Model:
+2025-12-12 13:03:18,144 - INFO - train_02 - LegalBERT(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(32001, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (classifier): Sequential(
+    (0): Linear(in_features=768, out_features=256, bias=True)
+    (1): ReLU()
+    (2): Dropout(p=0.1, inplace=False)
+    (3): Linear(in_features=256, out_features=5, bias=True)
+  )
+)
+2025-12-12 13:03:18,147 - INFO - train_02 - Number of parameters: 110,816,261
+2025-12-12 13:03:18,147 - INFO - train_02 - Number of trainable parameters: 36,228,101
+2025-12-12 13:03:18,147 - INFO - train_02 - Number of not trainable parameters: 74,588,160
+2025-12-12 13:03:18,148 - INFO - train_02 - ------------------------------
+2025-12-12 13:03:18,323 - INFO - train_02 -  Class weights:tensor([4.0593, 1.7677, 0.9249, 0.6227, 0.6663])
+2025-12-12 13:28:26,307 - INFO - train_02 - Train loss: 1.5675
+2025-12-12 13:29:04,227 - INFO - train_02 - Validation loss: 0.3328
+2025-12-12 13:29:04,269 - INFO - train_02 -               precision    recall  f1-score   support
+
+           0       0.22      0.33      0.27        12
+           1       0.32      0.48      0.38        27
+           2       0.29      0.04      0.07        51
+           3       0.56      0.07      0.12        75
+           4       0.41      0.94      0.57        70
+
+    accuracy                           0.38       235
+   macro avg       0.36      0.37      0.28       235
+weighted avg       0.41      0.38      0.28       235
+
+2025-12-12 13:29:04,271 - INFO - train_02 - Accuracy:0.3829787234042553
+2025-12-12 13:54:06,717 - INFO - train_02 - Train loss: 1.4030
+2025-12-12 13:54:44,541 - INFO - train_02 - Validation loss: 0.3071
+2025-12-12 13:54:44,556 - INFO - train_02 -               precision    recall  f1-score   support
+
+           0       0.25      0.42      0.31        12
+           1       0.29      0.33      0.31        27
+           2       0.45      0.10      0.16        51
+           3       0.47      0.37      0.42        75
+           4       0.51      0.83      0.63        70
+
+    accuracy                           0.45       235
+   macro avg       0.40      0.41      0.37       235
+weighted avg       0.45      0.45      0.41       235
+
+2025-12-12 13:54:44,558 - INFO - train_02 - Accuracy:0.44680851063829785
+2025-12-12 14:19:23,412 - INFO - train_02 - Train loss: 1.2911
+2025-12-12 14:20:01,286 - INFO - train_02 - Validation loss: 0.2931
+2025-12-12 14:20:01,292 - INFO - train_02 -               precision    recall  f1-score   support
+
+           0       0.23      0.50      0.32        12
+           1       0.30      0.30      0.30        27
+           2       0.37      0.27      0.31        51
+           3       0.57      0.21      0.31        75
+           4       0.53      0.89      0.67        70
+
+    accuracy                           0.45       235
+   macro avg       0.40      0.43      0.38       235
+weighted avg       0.47      0.45      0.42       235
+
+2025-12-12 14:20:01,293 - INFO - train_02 - Accuracy:0.451063829787234
+2025-12-12 14:44:36,075 - INFO - train_02 - Train loss: 1.2037
+2025-12-12 14:45:14,033 - INFO - train_02 - Validation loss: 0.2878
+2025-12-12 14:45:14,042 - INFO - train_02 -               precision    recall  f1-score   support
+
+           0       0.29      0.50      0.36        12
+           1       0.25      0.22      0.24        27
+           2       0.39      0.29      0.34        51
+           3       0.50      0.33      0.40        75
+           4       0.56      0.81      0.66        70
+
+    accuracy                           0.46       235
+   macro avg       0.40      0.43      0.40       235
+weighted avg       0.46      0.46      0.44       235
+
+2025-12-12 14:45:14,042 - INFO - train_02 - Accuracy:0.46382978723404256
+2025-12-12 15:09:49,437 - INFO - train_02 - Train loss: 1.1578
+2025-12-12 15:10:27,459 - INFO - train_02 - Validation loss: 0.2823
+2025-12-12 15:10:27,464 - INFO - train_02 -               precision    recall  f1-score   support
+
+           0       0.25      0.50      0.33        12
+           1       0.20      0.33      0.25        27
+           2       0.36      0.20      0.25        51
+           3       0.52      0.37      0.43        75
+           4       0.59      0.71      0.65        70
+
+    accuracy                           0.44       235
+   macro avg       0.38      0.42      0.38       235
+weighted avg       0.45      0.44      0.43       235
+
+2025-12-12 15:10:27,465 - INFO - train_02 - Accuracy:0.43829787234042555
+2025-12-12 15:35:06,822 - INFO - train_02 - Train loss: 1.1029
+2025-12-12 15:35:44,787 - INFO - train_02 - Validation loss: 0.2824
+2025-12-12 15:35:44,793 - INFO - train_02 -               precision    recall  f1-score   support
+
+           0       0.25      0.50      0.33        12
+           1       0.22      0.22      0.22        27
+           2       0.39      0.29      0.34        51
+           3       0.47      0.32      0.38        75
+           4       0.57      0.77      0.65        70
+
+    accuracy                           0.45       235
+   macro avg       0.38      0.42      0.39       235
+weighted avg       0.44      0.45      0.43       235
+
+2025-12-12 15:35:44,826 - INFO - train_02 - Accuracy:0.44680851063829785
+2025-12-12 16:00:22,640 - INFO - train_02 - Train loss: 1.0669
+2025-12-12 16:01:00,576 - INFO - train_02 - Validation loss: 0.2852
+2025-12-12 16:01:00,630 - INFO - train_02 -               precision    recall  f1-score   support
+
+           0       0.32      0.50      0.39        12
+           1       0.28      0.26      0.27        27
+           2       0.41      0.35      0.38        51
+           3       0.51      0.28      0.36        75
+           4       0.56      0.84      0.67        70
+
+    accuracy                           0.47       235
+   macro avg       0.41      0.45      0.41       235
+weighted avg       0.47      0.47      0.45       235
+
+2025-12-12 16:01:00,632 - INFO - train_02 - Accuracy:0.4723404255319149
+2025-12-12 16:02:02,873 - INFO - evaluation_03 -               precision    recall  f1-score   support
+
+           0       0.19      0.33      0.24        12
+           1       0.28      0.31      0.29        26
+           2       0.28      0.18      0.22        51
+           3       0.45      0.25      0.32        76
+           4       0.54      0.85      0.66        71
+
+    accuracy                           0.42       236
+   macro avg       0.35      0.38      0.35       236
+weighted avg       0.41      0.42      0.39       236
+
+2025-12-12 16:02:02,875 - INFO - evaluation_03 - Accuracy:0.423728813559322
+2025-12-12 16:02:03,177 - INFO - evaluation_03 - Confusion matrix is saved: output/models/bert_finetuned/confusion_matrix.png
